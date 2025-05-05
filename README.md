@@ -59,7 +59,7 @@ php -S 0.0.0.0:8888 -t .
 
 cd /etc/init.d
 
-sudo nano /etc/init.d/adminer
+nano /etc/init.d/adminer
 
 ```
 #!/sbin/openrc-run
