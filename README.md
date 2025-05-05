@@ -35,7 +35,7 @@ lbu include /etc/init.d/
 
 ### 4. Установим нужные пакеты для работы
 ```
-apk add htop nano mc curl
+apk add htop nano mc curl git
 ```
 
 ### 5. Установим нужные пакеты
@@ -99,8 +99,21 @@ cd test
 python -m venv env
 source env/bin/activate
 pip list
-pip install django
-django-admin --version
+pip install django (5.2)
+python -m django --version
 pip list
 ```
 
+Будут установлены следующие пекеты:
+```
+asgiref  3.8.1
+Django   5.2
+pip      25.0.1
+sqlparse 0.5.3
+```
+
+### 9. Подготовка проекта
+```
+python manage.py migrate
+python example_init.py
+```
