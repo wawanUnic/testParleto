@@ -87,7 +87,11 @@ stop() {
 chmod +x /etc/init.d/adminer
 rc-update add adminer default
 rc-service adminer start
+lbu commit
+reboot
 ```
+
+http://192.168.4.155:8888/adminer.php
 
 ### 8. Создаем виртуальное окружение
 ```
