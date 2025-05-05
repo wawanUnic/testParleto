@@ -57,27 +57,37 @@ php -S 0.0.0.0:8888 -t .
 
 ### 7. Настроим автозагрузку для Adminer
 
-nano /etc/systemd/system/phpserver.service
+cd /etc/init.d
+
+sudo nano /etc/init.d/adminer
 
 ```
-[Unit]
-Description=PHP Built-in Server
-After=network.target
+#!/sbin/openrc-run
 
-[Service]
-ExecStart=/usr/bin/php -S 0.0.0.0:8888 -t /var/www/adminer
-Restart=always
-User=www-data
-Group=www-data
+description="Adminer PHP Server"
 
-[Install]
-WantedBy=multi-user.target
+depend() {
+    need net
+}
+
+start() {
+    ebegin "Starting Adminer"
+    start-stop-daemon --start --background --exec /usr/bin/php -- -S 0.0.0.0:8888 -t /var/www/adminer
+    eend $?
+}
+
+stop() {
+    ebegin "Stopping Adminer"
+    start-stop-daemon --stop --exec /usr/bin/php
+    eend $?
+}
 ```
-
-systemctl enable phpserver
-
-systemctl start phpserver
-
+Запускаем:
+```
+chmod +x /etc/init.d/adminer
+rc-update add adminer default
+rc-service adminer start
+```
 
 ### 8. Создаем виртуальное окружение
 ```
