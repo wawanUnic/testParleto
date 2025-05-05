@@ -51,7 +51,7 @@ sqlite3 --version (>3)
 apk add php php-cli php-session php-mysqli php-pdo php-pdo_mysql php-pdo_sqlite php-json php-openssl php-mbstring
 mkdir -p /var/www/adminer
 cd /var/www/adminer
-curl -o adminer.php https://www.adminer.org/latest.php
+curl -o adminer.php https://github.com/vrana/adminer/releases/download/v4.6.2/adminer-4.6.2.php
 php -S 0.0.0.0:8888 -t .
 ```
 
