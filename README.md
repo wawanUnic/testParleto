@@ -33,20 +33,53 @@ apk upgrade
 lbu include /etc/init.d/
 ```
 
-### 4. Установим нужные дл работы пакеты
+### 4. Установим нужные пакеты для работы
 ```
-apk add htop nano mc
+apk add htop nano mc curl
 ```
 
-### 5. Установим нужную версию Python (>3.11)
+### 5. Установим нужные пакеты
 ```
 apk add python py3-pip sqlite3
-python --version
+python --version (>3.11)
 pip3 --version
-sqlite3 --version
+sqlite3 --version (>3)
 ```
 
-### 6. Создаем виртуальное окружение
+### 6. Установим Adminer для контроля (http://localhost:8888/adminer.php)
+```
+apk add php php-cli php-session php-mysqli php-pdo php-pdo_mysql php-pdo_sqlite php-json php-openssl php-mbstring
+mkdir -p /var/www/adminer
+cd /var/www/adminer
+curl -o adminer.php https://www.adminer.org/latest.php
+php -S 0.0.0.0:8888 -t .
+```
+
+### 7. Настроим автозагрузку для Adminer
+
+nano /etc/systemd/system/phpserver.service
+
+```
+[Unit]
+Description=PHP Built-in Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/php -S 0.0.0.0:8888 -t /var/www/adminer
+Restart=always
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target
+```
+
+systemctl enable phpserver
+
+systemctl start phpserver
+
+
+### 8. Создаем виртуальное окружение
 ```
 cd test
 python -m venv env
