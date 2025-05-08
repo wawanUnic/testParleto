@@ -1,7 +1,9 @@
 from django.db import models
 from django.db.models import Sum
 
+
 from datetime import datetime
+
 
 def report_turnover_by_year_month(period_begin, period_end):
     # _T_O_D_O_: TASK → make report using 1 database query without any math in python ---------
